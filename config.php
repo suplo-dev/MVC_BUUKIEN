@@ -1,6 +1,6 @@
 <?php
 
-const URL = 'https://cuananh.com/';
+const URL = 'https://localhost/';
 const URL_ADMIN = URL.'admin/';
 const URL_STORAGE = URL."assets/file/";
 
@@ -17,7 +17,7 @@ const WEB_DESCRIPTION = 'Hệ thống quản lí bưu kiện Evii';
 
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
-const DB_PASS = '123456';
+const DB_PASS = '';
 const DB_NAME = 'buukien';
 
 const TOAST_TIME = 3000;
