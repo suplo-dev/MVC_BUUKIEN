@@ -1,6 +1,6 @@
 <?php
 
-const URL = 'https://localhost/';
+const URL = 'http://localhost/';
 const URL_ADMIN = URL.'admin/';
 const URL_STORAGE = URL."assets/file/";
 

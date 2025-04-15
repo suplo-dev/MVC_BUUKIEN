@@ -423,7 +423,7 @@
                                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                         <div id='chartOverall' style="width: 100%"></div>
                                         <script>
-                                            let dataChartOverall = JSON.parse(`<?php echo json_encode($data['chart']['last_month']); ?>`);
+                                            let dataChartOverall = JSON.parse(`<?php echo json_encode($data['chart']['overall']); ?>`);
                                             let dataOverall = {
                                                 values: [],
                                                 labels: [],
@@ -434,16 +434,26 @@
                                                 textinfo: "label+percent",
                                                 insidetextorientation: "radial",
                                             };
-                                            let totalParcel = 0
+                                            let totalParcelOverall = 0
                                             dataChartOverall.forEach(function (state) {
-                                                totalParcel += state.count_parcel
+                                                totalParcelOverall += state.count_parcel
                                             })
                                             dataChartOverall.forEach(function (state) {
-                                                dataOverall.values.push(parseInt((state.count_parcel / totalParcel * 100).toFixed()))
+                                                dataOverall.values.push(parseInt((state.count_parcel / totalParcelOverall * 100).toFixed()))
                                                 dataOverall.labels.push(state.state_parcel)
                                                 dataOverall.marker.colors.push(state.color)
                                             })
-                                            Plotly.newPlot('chartOverall', [dataChartOverall], layout1, {responsive: true});
+                                            Plotly.newPlot('chartOverall', [dataOverall], {
+                                                margin: {
+                                                    width: 500,
+                                                    l: 80,
+                                                    r: 80,
+                                                    b: 0,
+                                                    t: 150,
+                                                    pad: 0
+                                                },
+                                                showlegend: false
+                                            }, {responsive: true});
                                         </script>
                                         <div class="row p-0">
                                             <div class="col-12 bg-green-custom text-center border-bottom py-4">Tổng có <?= array_reduce($data['chart']['overall'], function ($carry, $state) {
@@ -505,6 +515,8 @@
                             Plotly.Plots.resize(document.getElementById('chartThisMonth'));
                         } else if (targetId === '#profile') {
                             Plotly.Plots.resize(document.getElementById('chartLastMonth'));
+                        }  else if (targetId === '#contact') {
+                            Plotly.Plots.resize(document.getElementById('chartOverall'));
                         }
                         // Nếu có tab contact và thêm chart sau này thì cũng resize ở đây
                     });
