@@ -443,7 +443,7 @@
                                                 dataOverall.labels.push(state.state_parcel)
                                                 dataOverall.marker.colors.push(state.color)
                                             })
-                                            Plotly.newPlot('chartThisMonth', [dataChartOverall], layout1, {responsive: true});
+                                            Plotly.newPlot('chartOverall', [dataChartOverall], layout1, {responsive: true});
                                         </script>
                                         <div class="row p-0">
                                             <div class="col-12 bg-green-custom text-center border-bottom py-4">Tổng có <?= array_reduce($data['chart']['overall'], function ($carry, $state) {
