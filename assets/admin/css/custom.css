@@ -1,0 +1,145 @@
+.bg-blue-light {
+    background-color: #3ea2b9 !important;
+}
+
+.bg-blue-light:hover {
+  background-color: #52cce8 !important;
+}
+
+.bg-blue-light-active {
+  background-color: #15434e !important;
+}
+
+.bg-blue-light-disabled {
+  cursor: not-allowed !important;
+  color: #ffffff78 !important;
+  background-color: #226b7c !important;
+}
+
+.btn-primary-active, .btn-primary-active:hover {
+  background-color: #0f3e6c;
+  border: #0f3e6c;
+}
+
+.btn-blue-light, .btn-blue-light:hover {
+  background-color: #3ea2b9;
+  border: #3ea2b9;
+}
+
+
+.bg-error {
+    background-color: #ffccc9 !important;
+}
+
+.bg-blue {
+    background-color: #027594 !important;
+}
+
+.form-search  {
+    background-color: transparent;
+    border: none;
+    color: var(--bs-light);
+    width: 280px;
+}
+
+.form-search:focus {
+    border: none;
+    flex: 1; /* Chiếm toàn bộ chiều rộng */
+    outline: none; /* Bỏ viền khi focus */
+}
+
+.form-search::placeholder {
+    color: var(--bs-light);
+    font-size: 14px;
+}
+
+.rounded-fill-header {
+    border-radius: 12px !important;
+}
+
+.fs-btn-fill-header {
+    font-size: 10px;
+}
+
+.outline-none:focus {
+    box-shadow: none !important;
+}
+
+.w-btn-fill {
+    width: 120px;
+}
+
+button {
+  padding: 5px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+
+.chartCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.chartBox {
+  width: 95%;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chartContent {
+  display: flex;
+  height: 500px;
+  position: relative;
+}
+
+.colLarge {
+  overflow-x: auto;
+  position: relative;
+  direction: rtl; /* Thay đổi hướng thanh cuộn từ phải qua trái */
+}
+
+.box {
+  height: 460px;
+}
+
+/* Custom scrollbar */
+.colLarge::-webkit-scrollbar {
+  height: 8px;
+}
+
+.colLarge::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.colLarge::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.colLarge::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.nav-link-custom {
+    background: #e2e3e4 !important;
+    color: black !important;
+}
+
+.nav-link-custom.active {
+    background: #027594 !important;
+    color: white !important;
+}
+
+.bg-green-custom {
+    background: #027594 !important;
+    color: white !important;
+}
+
