@@ -288,8 +288,15 @@
                                                 totalParcel += state.count_parcel
                                             })
                                             dataChart.forEach(function (state) {
+                                                let stateParcel = ''
+                                                if (state.state_parcel === 'Đã nhận chuyển hoàn') {
+                                                    stateParcel = 'Đã nhận CH'
+                                                } else if (state.state_parcel === 'Chuẩn bị chuyển hoàn') {
+                                                    stateParcel = 'Chuẩn bị CH'
+                                                } else stateParcel = state.state_parcel
+
                                                 dataThisMonth.values.push(state.count_parcel)
-                                                dataThisMonth.labels.push(state.state_parcel)
+                                                dataThisMonth.labels.push(stateParcel)
                                                 dataThisMonth.marker.colors.push(state.color)
                                             })
                                             let layout1 = {
@@ -364,8 +371,14 @@
                                                 totalParcelLastMonth += state.count_parcel
                                             })
                                             dataChartLastMonth.forEach(function (state) {
+                                                let stateParcel = ''
+                                                if (state.state_parcel === 'Đã nhận chuyển hoàn') {
+                                                    stateParcel = 'Đã nhận CH'
+                                                } else if (state.state_parcel === 'Chuẩn bị chuyển hoàn') {
+                                                    stateParcel = 'Chuẩn bị CH'
+                                                } else stateParcel = state.state_parcel
                                                 dataLastMonth.values.push(state.count_parcel)
-                                                dataLastMonth.labels.push(state.state_parcel)
+                                                dataLastMonth.labels.push(stateParcel)
                                                 dataLastMonth.marker.colors.push(state.color)
                                             })
                                             Plotly.newPlot('chartLastMonth', [dataLastMonth],
@@ -439,8 +452,14 @@
                                                 totalParcelOverall += state.count_parcel
                                             })
                                             dataChartOverall.forEach(function (state) {
+                                                let stateParcel = ''
+                                                if (state.state_parcel === 'Đã nhận chuyển hoàn') {
+                                                    stateParcel = 'Đã nhận CH'
+                                                } else if (state.state_parcel === 'Chuẩn bị chuyển hoàn') {
+                                                    stateParcel = 'Chuẩn bị CH'
+                                                } else stateParcel = state.state_parcel
                                                 dataOverall.values.push(state.count_parcel)
-                                                dataOverall.labels.push(state.state_parcel)
+                                                dataOverall.labels.push(stateParcel)
                                                 dataOverall.marker.colors.push(state.color)
                                             })
                                             Plotly.newPlot('chartOverall', [dataOverall], {
