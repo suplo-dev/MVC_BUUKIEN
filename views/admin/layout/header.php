@@ -248,7 +248,7 @@
                         </div>
                         <?php endif ?>
                     </div>
-                    <?php if($page == 'parcel') : // Chức năng biểu đồ ?>
+                    <?php if($page == 'parcel' && $_SESSION['user']['name_role'] === 'admin') : // Chức năng biểu đồ ?>
                     <div class="sa-toolbar__item">
                         <i class="fas fa-chart-pie me-5" style="color:white; cursor: pointer" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
                         <div class="offcanvas offcanvas-end pb-5" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" data-bs-backdrop="false" data-bs-scroll="true">
@@ -288,7 +288,7 @@
                                                 totalParcel += state.count_parcel
                                             })
                                             dataChart.forEach(function (state) {
-                                                dataThisMonth.values.push(parseInt((state.count_parcel / totalParcel * 100).toFixed()))
+                                                dataThisMonth.values.push(state.count_parcel)
                                                 dataThisMonth.labels.push(state.state_parcel)
                                                 dataThisMonth.marker.colors.push(state.color)
                                             })
@@ -364,7 +364,7 @@
                                                 totalParcelLastMonth += state.count_parcel
                                             })
                                             dataChartLastMonth.forEach(function (state) {
-                                                dataLastMonth.values.push(parseInt((state.count_parcel / totalParcel * 100).toFixed()))
+                                                dataLastMonth.values.push(state.count_parcel)
                                                 dataLastMonth.labels.push(state.state_parcel)
                                                 dataLastMonth.marker.colors.push(state.color)
                                             })
@@ -439,7 +439,7 @@
                                                 totalParcelOverall += state.count_parcel
                                             })
                                             dataChartOverall.forEach(function (state) {
-                                                dataOverall.values.push(parseInt((state.count_parcel / totalParcelOverall * 100).toFixed()))
+                                                dataOverall.values.push(state.count_parcel)
                                                 dataOverall.labels.push(state.state_parcel)
                                                 dataOverall.marker.colors.push(state.color)
                                             })
