@@ -303,7 +303,7 @@ function toast_show() {
  */
 function clear_input($input) {
     // Xoá khoảng trắng đầu cuối, loại bỏ thẻ HTML và mã hoá ký tự đặc biệt
-    return htmlspecialchars(strip_tags(trim($input)), ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars(strip_tags(trim((string) $input)), ENT_QUOTES, 'UTF-8');
 }
 
 
