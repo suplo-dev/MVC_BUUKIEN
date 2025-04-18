@@ -6,7 +6,7 @@ require 'vendor/autoload.php'; // Đảm bảo đường dẫn đúng đến aut
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-if (isset($_FILES['file_request'])) {
+if (isset($_FILES['file_request']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
     $filePath = $_FILES['file_request']['tmp_name'];
 
     // Đọc dữ liệu từ tệp Excel

@@ -697,7 +697,7 @@ $(document).ready(function () {
 </script>
 
 <script>
-    document.getElementById('compareParcel').addEventListener('click', function() {
+    document.getElementById('compareParcel')?.addEventListener('click', function() {
         // Tạo input file ẩn
         const fileInput = document.createElement('input');
         fileInput.type = 'file';

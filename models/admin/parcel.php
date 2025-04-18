@@ -147,7 +147,7 @@ function compare_parcel($id_parcel,$new_fee,$new_cod,$new_state) {
 function get_data_last_month() {
     return pdo_query("
         SELECT state_parcel, SUM(fee) as total_fee, SUM(cod) as total_cod, count(id_parcel) as count_parcel FROM parcel
-        WHERE MONTH(created_at) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(created_at) = YEAR(CURDATE() - INTERVAL 1 MONTH)
+        WHERE MONTH(date_sent) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(date_sent) = YEAR(CURDATE() - INTERVAL 1 MONTH)
         GROUP BY state_parcel
         ORDER BY  
             CASE 
@@ -166,7 +166,7 @@ function get_data_last_month() {
 function get_data_this_month() {
     return pdo_query("
         SELECT state_parcel, SUM(fee) as total_fee, SUM(cod) as total_cod, count(id_parcel) as count_parcel FROM parcel
-        WHERE MONTH(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE())
+        WHERE MONTH(date_sent) = MONTH(CURDATE()) AND YEAR(date_sent) = YEAR(CURDATE())
         GROUP BY state_parcel
         ORDER BY  
             CASE 
