@@ -541,11 +541,14 @@
                     });
                 });
 
+
                 // Resize lại khi mở offcanvas (để tránh trường hợp chưa render xong đã bị che khuất)
                 const offcanvas = document.getElementById('offcanvasRight');
-                offcanvas.addEventListener('shown.bs.offcanvas', function () {
-                    Plotly.Plots.resize(document.getElementById('chartThisMonth'));
-                });
+                if (offcanvas) {
+                    offcanvas.addEventListener('shown.bs.offcanvas', function () {
+                        Plotly.Plots.resize(document.getElementById('chartThisMonth'));
+                    });
+                }
             </script>
 
 <!-- Dùng toast -->

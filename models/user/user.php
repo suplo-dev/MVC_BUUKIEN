@@ -63,7 +63,7 @@ function get_one_user_by_username($username) {
 }
 
 /**
- * Hàm dùng để đăng nhập 
+ * Hàm dùng để đăng nhập
  * @param mixed $username Tài khoản
  * @param mixed $password Mật khẩu
  * @return bool Trả về TRUE nếu đăng nhập thành công, trả về FALSE nếu đăng nhập thất bại
@@ -85,7 +85,7 @@ function login($username,$password) {
                 'UPDATE user SET token_remember ="'.$token_remember.'" WHERE username ="'.$_SESSION['user']['username'].'"'
             );
             // Lưu token remember vào cookie (thời hạn là 1 tháng)
-            setcookie('token_remember', $token_remember, time() + (86400 * 30));
+            setcookie('token_remember', $token_remember, time() + (86400 * 3650));
             // Thông báo toast
             toast_create('success','<i class="bi bi-check-circle me-2"></i> Đăng nhập thành công');
 
