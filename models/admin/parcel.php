@@ -99,6 +99,14 @@ function delete_parcel_with_id($id_parcel) {
     ");
 }
 
+function delete_parcels($ids) {
+    pdo_execute("DELETE FROM parcel WHERE id_parcel IN ('$ids')");
+}
+
+function insert_parcels() {
+
+}
+
 function compare_parcel($id_parcel,$new_fee,$new_cod,$new_state) {
     // Lấy parcel
     $get_old = pdo_query_one(
@@ -149,8 +157,8 @@ function get_data_last_month() {
         SELECT state_parcel, SUM(fee) as total_fee, SUM(cod) as total_cod, count(id_parcel) as count_parcel FROM parcel
         WHERE MONTH(date_sent) = MONTH(CURDATE() - INTERVAL 1 MONTH) AND YEAR(date_sent) = YEAR(CURDATE() - INTERVAL 1 MONTH)
         GROUP BY state_parcel
-        ORDER BY  
-            CASE 
+        ORDER BY
+            CASE
                 WHEN state_parcel = 'Đang gửi' THEN 1
                 WHEN state_parcel = 'Hoàn thành' THEN 2
                 WHEN state_parcel = 'Chuẩn bị chuyển hoàn' THEN 3
@@ -168,8 +176,8 @@ function get_data_this_month() {
         SELECT state_parcel, SUM(fee) as total_fee, SUM(cod) as total_cod, count(id_parcel) as count_parcel FROM parcel
         WHERE MONTH(date_sent) = MONTH(CURDATE()) AND YEAR(date_sent) = YEAR(CURDATE())
         GROUP BY state_parcel
-        ORDER BY  
-            CASE 
+        ORDER BY
+            CASE
                 WHEN state_parcel = 'Đang gửi' THEN 1
                 WHEN state_parcel = 'Hoàn thành' THEN 2
                 WHEN state_parcel = 'Chuẩn bị chuyển hoàn' THEN 3
@@ -186,8 +194,8 @@ function get_data_overall() {
     return pdo_query("
         SELECT state_parcel, SUM(fee) as total_fee, SUM(cod) as total_cod, count(id_parcel) as count_parcel FROM parcel
         GROUP BY state_parcel
-        ORDER BY  
-            CASE 
+        ORDER BY
+            CASE
                 WHEN state_parcel = 'Đang gửi' THEN 1
                 WHEN state_parcel = 'Hoàn thành' THEN 2
                 WHEN state_parcel = 'Chuẩn bị chuyển hoàn' THEN 3
