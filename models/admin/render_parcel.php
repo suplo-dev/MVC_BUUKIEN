@@ -76,52 +76,99 @@ function render_row_empty() {
 }
 
 function render_paginate_parcel($total_row, $page_active) {
-    // khởi tạo
+    // Khởi tạo
     $content = '';
-    // tính tổng số lần trang
-    $total_page = ceil($total_row/LIMIT_ROW_PAGINATE);
+    // Tính tổng số trang
+    $total_page = ceil($total_row / LIMIT_ROW_PAGINATE);
+
+    // Xử lý các trang xung quanh trang hiện tại
+    $range = 2; // Hiển thị 2 trang trước và 2 trang sau
+    $start = max(1, $page_active - $range);
+    $end = min($total_page, $page_active + $range);
 
     // Render trang trước
-        if($page_active == 1 ) {
-            $state_before_page = '-disabled';
-            $value_before_page = 0;
+    if ($page_active == 1) {
+        $state_before_page = '-disabled';
+        $value_before_page = 0;
+    } else {
+        $state_before_page = '';
+        $value_before_page = $page_active - 1;
+    }
+    $content .= <<<HTML
+    <button value="{$value_before_page}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_before_page}">
+        <small>Trước</small>
+    </button>
+    HTML;
+
+    // Hiển thị các trang
+    if ($page_active <= 3) {
+        // Nếu trang active là 1, 2, 3, hiển thị từ 1 đến 3 và sau đó là "..."
+        for ($i = 1; $i <= 3; $i++) {
+            $state_inner_page = ($i == $page_active) ? '-active' : '';
+            $content .= <<<HTML
+            <button value="{$i}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_inner_page}">
+                <small>{$i}</small>
+            </button>
+            HTML;
         }
-        else {
-            $state_before_page = '';
-            $value_before_page = $page_active - 1;
+        // Dấu "..."
+        if ($total_page > 3) {
+            $content .= "<span class='btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light'>...</span>";
         }
+        // Hiển thị trang cuối
         $content .= <<<HTML
-        <button value="{$value_before_page}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_before_page}">
-            <small>Trước</small>
+        <button value="{$total_page}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light">
+            <small>{$total_page}</small>
         </button>
         HTML;
-
-    //return
-    for ($i=1; $i <= $total_page; $i++) {
-        // format
-        if($i == $page_active) {
-            $state_inner_page = '-active';
-            $value_inner_page = 0;
-        }else {
-            $state_inner_page = '';
-            $value_inner_page = $i;
-        };
-
-        // render
+    } elseif ($page_active >= $total_page - 2) {
+        // Nếu trang active là trang cuối (hoặc gần cuối)
         $content .= <<<HTML
-        <button value="{$value_inner_page}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_inner_page}">
-            <small>{$i}</small>
+            <button value="1" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light">
+                <small>1</small>
+            </button>
+            <span class='btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light'>...</span>
+            HTML;
+        for ($i = $total_page - 2; $i <= $total_page; $i++) {
+            $state_inner_page = ($i == $page_active) ? '-active' : '';
+            $content .= <<<HTML
+            <button value="{$i}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_inner_page}">
+                <small>{$i}</small>
+            </button>
+            HTML;
+        }
+    } else {
+        // Nếu trang active nằm giữa
+        $content .= <<<HTML
+            <button value="1" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light">
+                <small>1</small>
+            </button>
+            <span class='btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light'>...</span>
+            HTML;
+        for ($i = $page_active - 1; $i <= $page_active + 1; $i++) {
+            $state_inner_page = ($i == $page_active) ? '-active' : '';
+            $content .= <<<HTML
+            <button value="{$i}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light{$state_inner_page}">
+                <small>{$i}</small>
+            </button>
+            HTML;
+        }
+        $content .= <<<HTML
+            <span class='btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light'>...</span>
+            HTML;
+        $content .= <<<HTML
+        <button value="{$total_page}" class="btn-paginate sa-toolbar-user btn-sm bg-primary small fw-normal text-light rounded-0 bg-blue-light">
+            <small>{$total_page}</small>
         </button>
         HTML;
-    };
+    }
 
     // Render trang sau
-    if($total_page > 1) {
-        if($page_active == $total_page ) {
+    if ($total_page > 1) {
+        if ($page_active == $total_page) {
             $state_after_page = '-disabled';
             $value_after_page = 0;
-        }
-        else {
+        } else {
             $state_after_page = '';
             $value_after_page = $page_active + 1;
         }
@@ -131,7 +178,7 @@ function render_paginate_parcel($total_row, $page_active) {
             <small>Sau</small>
         </button>
         HTML;
+    }
 
-        return $content;
-    };
+    return $content;
 }

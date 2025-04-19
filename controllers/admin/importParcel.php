@@ -5,7 +5,8 @@ model('admin', 'parcel');
 require 'vendor/autoload.php'; // Đảm bảo đường dẫn đúng đến autoload.php của Composer
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+echo '<pre>';
+$t1 = microtime(true);
 if (isset($_FILES['file_request']) && $_FILES['file_request']['error'] == UPLOAD_ERR_OK) {
     $filePath = $_FILES['file_request']['tmp_name'];
 
@@ -32,11 +33,13 @@ if (isset($_FILES['file_request']) && $_FILES['file_request']['error'] == UPLOAD
 
     // Lấy tiêu đề cột
     $headerRow = $sheet->rangeToArray("A1:L1")[0];
-
+    $t2 = microtime(true);
+    var_dump($t2 - $t1);
     if ($headerRow === $expectedHeaders) {
         $arrData = [];
         // Nếu tiêu đề đúng, lặp qua từng dòng
         for ($row = 2; $row <= $highestRow; $row++) {
+            $t3 = microtime(true);
             // Sắp xếp và lấy dữ liệu dòng hiện tại
             $data = $sheet->rangeToArray("A$row:L$row")[0];
 
@@ -83,7 +86,8 @@ if (isset($_FILES['file_request']) && $_FILES['file_request']['error'] == UPLOAD
                     $address_receiver, null, $fee, $cod, $name_product, $state_parcel, $note, date("Y-m-d H:i:s")
                 ];
             }
-
+            $t4 = microtime(true);
+            var_dump('4-3', $t4 - $t3);
             // Xử lý khi mảng arrData có hơn 1000 dòng
             if (count($arrData) >= 1000) {
                 foreach (array_chunk($arrData, 1000) as $chunk) {
@@ -99,6 +103,8 @@ if (isset($_FILES['file_request']) && $_FILES['file_request']['error'] == UPLOAD
                 }
                 // Reset arrData sau khi xử lý
                 $arrData = [];
+                $t5 = microtime(true);
+                var_dump('5-4', $t5 - $t4);
             }
         }
 
@@ -116,6 +122,10 @@ if (isset($_FILES['file_request']) && $_FILES['file_request']['error'] == UPLOAD
                 $stmt->execute(array_merge(...$chunk));
             }
         }
+        $t6 = microtime(true);
+        var_dump('end', $t6 - $t1);
+
+        echo '</pre>';
 
         // Thông báo hoàn tất và chuyển route
         toast_create('info', 'Quá trình nhập XLSX đã hoàn tất.');
